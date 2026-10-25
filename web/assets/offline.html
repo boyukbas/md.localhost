@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>md.localhost is not running</title>
+<link rel="icon" href="/favicon.ico">
+<style>
+  :root { color-scheme: light dark; --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --accent: #2b7fff; --border: #d1d9e0; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --accent: #4493f8; --border: #3d444d; } }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { max-width: 30rem; margin: 0 auto; padding: 18vh 24px 0; text-align: center; }
+  h1 { font-size: 1.35rem; margin: 0 0 8px; }
+  p { color: var(--muted); margin: 0 0 20px; }
+  .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  a.btn, button.btn {
+    font: inherit; font-size: .95rem; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); background: transparent; color: var(--fg); text-decoration: none;
+  }
+  a.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .status { margin-top: 22px; font-size: .82rem; color: var(--muted); min-height: 1.4em; }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: .85em; }
+</style>
+</head>
+<body>
+<main>
+  <svg width="56" height="56" viewBox="0 0 32 32" aria-hidden="true">
+    <rect width="32" height="32" rx="6" fill="#2b7fff"/>
+    <path d="M6 22V10h3.2l3.3 5 3.3-5H19v12h-3.2v-6.6l-2.9 4.3h-.6l-2.9-4.3V22z" fill="#fff"/>
+    <path d="M22.8 10h3v7.4h3.4L24.3 23 19 17.4h3.8z" fill="#fff" opacity=".85"/>
+  </svg>
+  <h1>md.localhost is not running</h1>
+  <p>The viewer needs its local server. Start it, and this page will come back on its own.</p>
+  <div class="row">
+    <a class="btn primary" href="md-localhost:start" id="start">Start the server</a>
+    <button class="btn" id="retry" type="button">Retry now</button>
+  </div>
+  <div class="status" id="status">Watching for it…</div>
+  <p style="margin-top:28px; font-size:.82rem">
+    It also starts by itself whenever you open a <code>.md</code> file,
+    or by running <code>mdlocalhost home</code>.
+  </p>
+</main>
+<script>
+(function () {
+  var status = document.getElementById("status");
+  var tries = 0;
+
+  function check() {
+    tries += 1;
+    fetch("/healthz", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("status " + r.status)); })
+      .then(function () {
+        status.textContent = "Back — reloading…";
+        window.location.replace("/");
+      })
+      .catch(function () {
+        status.textContent = "Still not running (checked " + tries + "×)";
+      });
+  }
+
+  document.getElementById("retry").addEventListener("click", check);
+  document.getElementById("start").addEventListener("click", function () {
+    status.textContent = "Asking Windows to start it…";
+    setTimeout(check, 1200);
+  });
+  setInterval(check, 3000);
+  check();
+})();
+</script>
+</body>
+</html>
