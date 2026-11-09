@@ -16,9 +16,7 @@ itself down about half an hour after you close the last tab.
 
 ## Install
 
-1. Build the executable (needs [Go](https://go.dev/dl/) 1.22+), or download
-   `mdlocalhost.exe` from the [latest release](https://github.com/boyukbas/md.localhost/releases/latest)
-   and put it next to these scripts:
+1. Build `mdlocalhost.exe` (needs [Go](https://go.dev/dl/) 1.22+):
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\build.ps1
