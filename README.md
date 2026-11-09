@@ -4,6 +4,8 @@ Double-click a `.md` file in Windows Explorer and it opens, rendered, at
 `http://md.localhost/`. Double-click another and it arrives as a **tab inside
 the viewer you already have open** rather than as one more browser tab.
 
+![md.localhost showing a Markdown file with tabs, a highlighted code block, a Mermaid diagram and a table of contents](docs/screenshot.png)
+
 It installs as a desktop application, so it can live on the taskbar with its
 own icon and window rather than inside a browser.
 
@@ -14,8 +16,9 @@ itself down about half an hour after you close the last tab.
 
 ## Install
 
-1. Build the executable (needs [Go](https://go.dev/dl/) 1.22+), or use the
-   `mdlocalhost.exe` shipped alongside these scripts:
+1. Build the executable (needs [Go](https://go.dev/dl/) 1.22+), or download
+   `mdlocalhost.exe` from the [latest release](https://github.com/boyukbas/md.localhost/releases/latest)
+   and put it next to these scripts:
 
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\build.ps1
@@ -246,7 +249,7 @@ Logs go to `%LOCALAPPDATA%\md.localhost\server.log`.
 ## Layout
 
 ```
-cmd/mdlocalhost/     CLI entry point and the Windows icon resource
+cmd/mdlocalhost/     CLI entry point (open, home, serve, status, stop, ...)
 internal/server/     HTTP server, renderer, file watching, process control
 web/                 page templates and the assets compiled into the binary
 build.ps1            builds mdlocalhost.exe
