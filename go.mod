@@ -1,4 +1,4 @@
-module github.com/barisboyukbas/md.localhost
+module github.com/boyukbas/md.localhost
 
 go 1.24.7
 

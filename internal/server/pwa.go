@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/barisboyukbas/md.localhost/web"
+	"github.com/boyukbas/md.localhost/web"
 )
 
 // AppName is what the installed application is called: the window title suffix,

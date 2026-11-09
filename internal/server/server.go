@@ -21,7 +21,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/barisboyukbas/md.localhost/web"
+	"github.com/boyukbas/md.localhost/web"
 )
 
 const tokenHeader = "X-MDL-Token"
